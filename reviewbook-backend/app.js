@@ -1,6 +1,7 @@
-//const express = require("express");
+const express = require("express");
 const cors = require("cors");
-const contactsRouter = require("./app/routes/contact.route");
+const usersRouter = require("./app/routes/user.route");
+const adminRouter = require("./app/routes/admin.route");
 const ApiError = require("./app/api-error");
 
 const app = express();
@@ -9,10 +10,11 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-	res.json({ message: "Welcome to contact book application."});
+	res.json({ message: "Welcome to review book application."});
 });
 
-app.use("/api/contacts", contactsRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/admins", adminRouter);
 
 // handle 404 response
 app.use((req, res, next) => {
