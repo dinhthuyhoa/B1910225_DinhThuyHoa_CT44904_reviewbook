@@ -32,7 +32,7 @@
                                             <p>100.000/ <span>VNĐ</span></p>
                                         </div>
                                         <div class="left_room_title floatright">
-                                            <a href="#" class="btn">Đặt ngay</a>
+                                            <a href="#" class="btn">Đặt</a>
                                         </div>
                                     </div>
                                 </figure>
