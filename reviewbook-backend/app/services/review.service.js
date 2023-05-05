@@ -2,14 +2,14 @@
 
 const { ObjectId } = require("mongodb");
 
-class UserService {
+class ReviewService {
 
   constructor(client) {
-    this.User = client.db().collection("users");
+    this.Review = client.db().collection("reviews");
   }
 
-  extractUserData(payload) {
-    const user = {
+  extractReviewData(payload) {
+    const review = {
       email: payload.email,
       phone: payload.phone,
       password: payload.password,
@@ -20,16 +20,16 @@ class UserService {
     };
 
     // Remove undefined fields
-    Object.keys(user).forEach(
-      (key) => user[key] === undefined && delete user[key]
+    Object.keys(review).forEach(
+      (key) => review[key] === undefined && delete review[key]
     );
-    return user;
+    return review;
   }
 
-  async createUser(payload) {
-    const user = this.extractUserData(payload);
-    const result = await this.User.findOneAndUpdate(
-      user,
+  async createReview(payload) {
+    const review = this.extractReviewData(payload);
+    const result = await this.Review.findOneAndUpdate(
+      review,
       { $set: {} },
       { returnDocument: "after", upsert: true }
     );
@@ -37,27 +37,27 @@ class UserService {
   }
 
   async find(filter) {
-    const cursor = await this.User.find(filter);
+    const cursor = await this.Review.find(filter);
     return await cursor.toArray();
   }
 
-  async findUserById(id) {
-    return await this.User.findOne({
+  async findReviewById(id) {
+    return await this.Review.findOne({
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
     });
   }
-  async findUserByName(username) {
+  async findReviewByTitle(title) {
     return await this.find({
-      username: { $regex: new RegExp(username), $options: "i" },
+      title: { $regex: new RegExp(title), $options: "i" },
     });
   }
 
-  async updateUserById(id, payload) {
+  async updateReviewById(id, payload) {
     const filter = {
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
     };
-    const update = this.extractUserData(payload);
-    const result = await this.User.findOneAndUpdate(
+    const update = this.extractReviewData(payload);
+    const result = await this.Review.findOneAndUpdate(
       filter,
       { $set: update },
       { returnDocument: "after" }
@@ -65,12 +65,12 @@ class UserService {
     return result.value;
   }
 
-  async deleteUserById(id) {
-    const result = await this.User.findOneAndDelete({
+  async deleteReviewById(id) {
+    const result = await this.Review.findOneAndDelete({
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
     });
     return result.value;
   }
 }
 
-module.exports = UserService;
+module.exports = ReviewService;

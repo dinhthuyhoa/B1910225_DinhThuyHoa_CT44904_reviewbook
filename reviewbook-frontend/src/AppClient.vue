@@ -15,7 +15,24 @@ export default {
 </script>
 
 <template>
-  <div id="app">
-    <router-view />
+  <div>
+    <AppHeader />
+    <div class="">
+      <div class="container-fluid p-0">
+        <router-view />
+      </div>
+    </div>
+    <AppFooter />
   </div>
 </template>
+
+<style>
+.page {
+  max-width: 400px;
+  margin: auto;
+}
+
+.hidden {
+  display: none;
+}
+</style>
