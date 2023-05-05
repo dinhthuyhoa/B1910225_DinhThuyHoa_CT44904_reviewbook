@@ -1,12 +1,20 @@
 <template>
   <div class="p-5">
     <h1>Create New User</h1>
-    <form>
-      <div class="form-group">
+    <form class="row">
+      <div class="form-group col-6">
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name" v-model="user.name" />
       </div>
-      <div class="form-group">
+      <div class="form-group col-6">
+        <label for="role">Role</label>
+        <select class="form-control" id="role" v-model="user.role">
+          <option value="admin">Admin</option>
+          <option value="reviewer">Reviewer</option>
+          <option value="customer">Customer</option>
+        </select>
+      </div>
+      <div class="form-group col-6">
         <label for="email">Email</label>
         <input
           type="email"
@@ -15,7 +23,7 @@
           v-model="user.email"
         />
       </div>
-      <div class="form-group">
+      <div class="form-group col-6">
         <label for="phone">Phone</label>
         <input
           type="text"
@@ -24,16 +32,20 @@
           v-model="user.phone"
         />
       </div>
-      <div class="form-group">
-        <label for="role">Role</label>
-        <select class="form-control" id="role" v-model="user.role">
-          <option value="admin">Admin</option>
-          <option value="user">User</option>
-        </select>
+      <div class="form-group col-6">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          v-model="user.password"
+        />
       </div>
-      <button class="btn btn-primary" @click.prevent="createUser()">
-        Create User
-      </button>
+      <div class="col-12">
+        <button class="btn btn-primary" @click.prevent="createUser()">
+          Create User
+        </button>
+      </div>
     </form>
   </div>
 </template>
@@ -50,7 +62,8 @@ export default {
         name: "",
         email: "",
         phone: "",
-        role: "user",
+        password: "",
+        role: "customer",
       },
     };
   },

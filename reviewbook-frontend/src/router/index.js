@@ -61,10 +61,22 @@ const routes = [
             },
 
             {
+                path: "users/:id",
+                name: "EditNewUser",
+                component: () => import("@/components/EditNewUser.vue"),
+            },
+
+            {
                 path: "books",
                 name: "books",
                 component: () => import("@/views/admin/Books.vue"),
 
+            },
+
+            {
+                path: "books/create",
+                name: "CreateNewBook",
+                component: () => import("@/components/CreateNewBook.vue"),
             },
 
             {

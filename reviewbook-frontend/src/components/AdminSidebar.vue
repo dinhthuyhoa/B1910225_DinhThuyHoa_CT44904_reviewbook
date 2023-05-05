@@ -1,14 +1,26 @@
 <template>
   <nav class="nav flex-column">
+    <hr/>
     <router-link class="nav-link" :to="{ name: 'users' }" active-class="active">
       Users
     </router-link>
+    <router-link class="nav-link" :to="{ name: 'CreateNewUser' }" active-class="active">
+      Create User
+    </router-link>
+    <hr/>
     <router-link class="nav-link" :to="{ name: 'books' }" active-class="active">
       Books
     </router-link>
+    <router-link class="nav-link" :to="{ name: 'CreateNewBook' }" active-class="active">
+      Create Book
+    </router-link>
+    <hr/>
+
     <router-link class="nav-link" :to="{ name: 'reviews' }" active-class="active">
       Review
     </router-link>
+    <hr/>
+
   </nav>
 </template>
 
