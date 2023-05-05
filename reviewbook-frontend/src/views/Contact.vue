@@ -58,7 +58,7 @@
 <style scoped>
 
   .container-fluid {
-    padding: 0;
+    padding: 0 40px;
     height: 100vh;
     font-family: "Courier New", Courier, monospace;
     margin-top: 10px;

@@ -3,6 +3,7 @@ import AppHeader from "@/components/AppHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
 import Login from "@/components/Login.vue";
 import Home from "@/views/Home.vue";
+
 export default {
   components: {
     AppHeader,
@@ -17,7 +18,7 @@ export default {
   <div id="app">
     <div class="">
       <AppHeader />
-      <div class="container">
+      <div class="container-fluid p-0">
         <router-view />
       </div>
     </div>

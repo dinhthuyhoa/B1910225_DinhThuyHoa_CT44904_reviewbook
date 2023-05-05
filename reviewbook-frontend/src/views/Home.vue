@@ -1,91 +1,149 @@
-
-<template >
-    
-    <div id="home_one" style="min-height: 79vh;" >
-        <div class=" page container">
-            
+<template>
+  <div id="home_one" style="min-height: 79vh">
+    <!-- <div class="container-fluid"> -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="../img/banner-first.png" alt="Slide 1" />
         </div>
-        <section class="welcome_area">
-            <div class="container">
-                <div class="welcome">
-                    <div class="section_title nice_title content-center">
-                        <br />
-                        <h3>Welcome To Bookstore</h3>
-                    </div>
-                    <div class="section_description">
-                        <p> Semper ac dolor vitae accumsan. Cras interdum hendrerit lacinia. Phasellus accumsan urna
-                            vitae
-                            molestie interdum. Nam sed placerat libero, non eleifend dolor. </p>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="single_room_wrapper clearfix">
-                                <figure class="uk-overlay uk-overlay-hover">
-                                    <div class="room_media">
-                                        <a href="#"><img style=" height: 200px;"
-                                                src="https://media.kenhtuyensinh.vn/images/cms/2020/09/ac-nhan-tam.jpg"
-                                                alt=""></a>
-                                    </div>
-                                    <div class="room_title border-bottom-whitesmoke clearfix">
-                                        <div class="left_room_title floatleft">
-                                            <h6>Sách ĐẮC NHÂN TÂM (mới)</h6>
-                                            <p>100.000/ <span>VNĐ</span></p>
-                                        </div>
-                                        <div class="left_room_title floatright">
-                                            <a href="#" class="btn">Đặt</a>
-                                        </div>
-                                    </div>
-                                </figure>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="single_room_wrapper clearfix">
-                                <figure class="uk-overlay uk-overlay-hover">
-                                    <div class="room_media">
-                                        <a href="#"><img style=" height: 200px;"
-                                                src="https://jobsgo.vn/blog/wp-content/uploads/2022/05/sach-hay-ve-tu-duy-phan-bien-2.jpg"
-                                                alt=""></a>
-                                    </div>
-                                    <div class="room_title border-bottom-whitesmoke clearfix">
-                                        <div class="left_room_title floatleft">
-                                            <h6>Sách Tư duy - phản biện</h6>
-                                            <p>150.000/ <span>VNĐ</span></p>
-                                        </div>
-                                        <div class="left_room_title floatright">
-                                            <a href="#" class="btn">Đặt ngay</a>
-                                        </div>
-                                    </div>
-                                </figure>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="single_room_wrapper clearfix">
-                                <figure class="uk-overlay uk-overlay-hover">
-                                    <div class="room_media">
-                                        <a href="#"><img style=" height: 200px;"
-                                                src="https://sachhay24h.com/uploads/images/suc-manh-cua-long-kien-nhan.jpg"
-                                                alt=""></a>
-                                    </div>
-                                    <div class="room_title border-bottom-whitesmoke clearfix">
-                                        <div class="left_room_title floatleft">
-                                            <h6>Sức mạnh của lòng kiên nhẫn</h6>
-                                            <p>120.000/ <span>VNĐ</span></p>
-                                        </div>
-                                        <div class="left_room_title floatright">
-                                            <a href="#" class="btn">Đặt ngay</a>
-                                        </div>
-                                    </div>
-                                </figure>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div class="carousel-item">
+          <img src="../img/banner-w.png" alt="Slide 2" />
+        </div>
+        <div class="carousel-item">
+          <img src="../img/banner.png" alt="Slide 3" />
+        </div>
+      </div>
+      <a
+        class="carousel-control-prev"
+        href="#myCarousel"
+        role="button"
+        data-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a
+        class="carousel-control-next"
+        href="#myCarousel"
+        role="button"
+        data-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
 
+    <div class="some-review">
+      <div class="title-some-review">
+        <h2>Welcome To Les Moments Sereins</h2>
+        <p>Here will display some featured book review articles!</p>
+      </div>
+    </div>
+
+    <div>
+      <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
+        <Slide v-for="(slide, index) in slides" :key="index">
+          <div class="carousel__item">
+            <img src="{{ slide.src }}" alt="" />
+          </div>
+        </Slide>
+      </Carousel>
+    </div>
+
+    <!-- </section> -->
+  </div>
 </template>
 
+<style scoped>
+#myCarousel {
+  height: 100vh;
+}
 
+.carousel-item {
+  height: 100%;
+}
 
+.carousel-item > img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.some-review {
+  margin-top: 35px;
+  padding: 20px;
+  font-family: "Courier New", Courier, monospace;
+}
+h2 {
+  font-weight: bold;
+}
+/* style carousel */
+.carousel__slide {
+  padding: 5px;
+}
+
+.carousel__viewport {
+  perspective: 2000px;
+}
+
+.carousel__track {
+  transform-style: preserve-3d;
+}
+
+.carousel__slide--sliding {
+  transition: 0.5s;
+}
+
+.carousel__slide {
+  opacity: 0.9;
+  transform: rotateY(-20deg) scale(0.9);
+}
+
+.carousel__slide--active ~ .carousel__slide {
+  transform: rotateY(20deg) scale(0.9);
+}
+
+.carousel__slide--prev {
+  opacity: 1;
+  transform: rotateY(-10deg) scale(0.95);
+}
+
+.carousel__slide--next {
+  opacity: 1;
+  transform: rotateY(10deg) scale(0.95);
+}
+
+.carousel__slide--active {
+  opacity: 1;
+  transform: rotateY(0) scale(1.1);
+}
+</style>
+
+<script>
+import $ from "jQuery";
+import { Carousel, Pagination, Slide } from "vue3-carousel";
+
+import "vue3-carousel/dist/carousel.css";
+
+export default {
+  methods: {},
+  mounted() {
+    $(document).ready(function () {
+      $("#myCarousel").carousel();
+    });
+  },
+  components: {
+    Carousel,
+    Slide,
+    Pagination,
+  },
+  data() {
+    return {
+      slides: [
+        { src: "../img/banner.png", name: "Ple" },
+        { src: "../img/banner.png", name: "Hoa" },
+        { src: "../img/banner.png", name: "Yeah" },
+      ],
+    };
+  },
+};
+</script>

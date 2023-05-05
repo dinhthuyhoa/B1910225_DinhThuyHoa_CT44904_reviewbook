@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body-about">
     <h2>Giới thiệu</h2>
     <hr />
     <p>
@@ -50,7 +50,9 @@
 </template>
 
 <style>
-
+.body-about{
+padding: 0 200px;
+}
 h2 {
     font-family: 'Courier New', Courier, monospace;
     margin-top: 4%; 
