@@ -8,7 +8,7 @@
           <th>Họ và tên</th>
           <th>Email</th>
           <th>Số điện thoại</th>
-          <th>Loại người udngf</th>
+          <th>Loại người dùng</th>
           <th class="text-center">Hành động</th>
         </tr>
       </thead>
@@ -20,7 +20,7 @@
           <td>{{ user.phone }}</td>
           <td>{{ user.role }}</td>
           <td class="d-flex justify-content-center" style="gap: 10px">
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" >
               <font-awesome-icon :icon="['fas', 'edit']" />
             </button>
             <button class="btn btn-danger" @click="deleteUser(user._id)">
