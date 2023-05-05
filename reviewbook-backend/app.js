@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const authRouter = require("./app/routes/auth.route");
 const usersRouter = require("./app/routes/user.route");
 const adminRouter = require("./app/routes/admin.route");
 const ApiError = require("./app/api-error");
@@ -15,6 +16,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", usersRouter);
 app.use("/api/admins", adminRouter);
+app.use("/api/auth", authRouter)
 
 // handle 404 response
 app.use((req, res, next) => {

@@ -3,53 +3,61 @@
 const { ObjectId } = require("mongodb");
 
 class UserService {
+
   constructor(client) {
-    this.users = client.db().collection("users");
+    this.User = client.db().collection("users");
   }
-  extractUser(payload) {
+
+  extractUserData(payload) {
     const user = {
-      username: payload.username,
+      email: payload.email,
+      phone: payload.phone,
       password: payload.password,
       name: payload.name,
       address: payload.address,
-      type:payload.type,
+      role: payload.role,
+      status: payload.status
     };
+
     // Remove undefined fields
     Object.keys(user).forEach(
       (key) => user[key] === undefined && delete user[key]
     );
     return user;
   }
+
   async createUser(payload) {
-    const user = this.extractUser(payload);
-    const result = await this.users.findOneAndUpdate(
+    const user = this.extractUserData(payload);
+    const result = await this.User.findOneAndUpdate(
       user,
-      { $set: { type: user.type === true } },
+      { $set: {} },
       { returnDocument: "after", upsert: true }
     );
     return result.value;
   }
+
   async find(filter) {
-    const cursor = await this.users.find(filter);
+    const cursor = await this.User.find(filter);
     return await cursor.toArray();
-}
+  }
+
   async findUserById(id) {
-    return await this.users.findOne({
+    return await this.User.findOne({
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
     });
   }
   async findUserByName(username) {
     return await this.find({
-        username: { $regex: new RegExp(username), $options: "i"},
+      username: { $regex: new RegExp(username), $options: "i" },
     });
-}
+  }
 
   async updateUserById(id, payload) {
     const filter = {
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
     };
     const update = this.extractUser(payload);
-    const result = await this.users.findOneAndUpdate(
+    const result = await this.User.findOneAndUpdate(
       filter,
       { $set: update },
       { returnDocument: "after" }
@@ -58,7 +66,7 @@ class UserService {
   }
 
   async deleteUserById(id) {
-    const result = await this.users.findOneAndDelete({
+    const result = await this.User.findOneAndDelete({
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
     });
     return result.value;
