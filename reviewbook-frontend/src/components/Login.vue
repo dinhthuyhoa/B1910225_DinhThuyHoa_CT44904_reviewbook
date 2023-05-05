@@ -13,7 +13,7 @@
           </div>
           <button type="submit" class="btn btn-primary">Login</button>
           <div class="signup-link">
-            <p class="signup">Bạn chưa có tài khoản? </p>
+            <p class="signup">Bạn chưa có tài khoản? 
             <a class="nav-link active" aria-current="page">
             <router-link
               :to="{ name: 'signup' }"
@@ -23,6 +23,7 @@
               Sign Up
             </router-link>
           </a>
+        </p>
           </div>
         </form>
         

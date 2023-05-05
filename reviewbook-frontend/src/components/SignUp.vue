@@ -28,6 +28,7 @@
             id="confirm-password"
             name="confirm-password"
             class="form-control"
+            style="min-width: 292px;"
           />
         </div>
         <button type="submit" class="btn btn-primary">Sign Up</button>
@@ -59,17 +60,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 90vh;
 }
 .signup-form {
   width: 450px;
-  height: 80vh;
+  height: 78vh;
   padding: 40px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   font-family: "Courier New", Courier, monospace;
 }
+
 .signup-title {
   font-size: 28px;
   font-weight: bold;
