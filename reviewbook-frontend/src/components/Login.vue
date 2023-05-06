@@ -71,17 +71,30 @@ export default {
         // Xử lý kết quả trả về nếu cần
         if (response.data) {
           console.log(response.data);
+          const userTemp = response.data;
+
           // Lưu thông tin đăng nhập vào localStorage
-          localStorage.setItem("userLogin", response.data);
+          if (userTemp.role == "admin" || userTemp.role == "reviewer") {
+            localStorage.setItem("userLoginAdmin", response.data);
+            Swal.fire({
+              icon: "success",
+              title: "Thành công!",
+              text: "Đăng nhập thành công",
+            });
 
-          Swal.fire({
-            icon: "success",
-            title: "Thành công!",
-            text: "Đăng nhập thành công",
-          });
+            // Chuyển hướng về trang home
+            this.$router.push({ name: "Users" });
+          } else {
+            localStorage.setItem("userLogin", response.data);
+            Swal.fire({
+              icon: "success",
+              title: "Thành công!",
+              text: "Đăng nhập thành công",
+            });
 
-          // Chuyển hướng về trang home
-          this.$router.push({ name: "home" });
+            // Chuyển hướng về trang home
+            this.$router.push({ name: "home" });
+          }
         } else {
           Swal.fire({
             icon: "error",
