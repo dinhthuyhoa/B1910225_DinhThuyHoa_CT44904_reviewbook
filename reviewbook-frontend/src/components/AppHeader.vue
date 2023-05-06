@@ -28,6 +28,17 @@
         <li style="display: inline-block; margin: 0 10px">
           <a class="nav-link active" aria-current="page">
             <router-link
+              :to="{ name: 'review-client' }"
+              class="nav-link"
+              style="color: rgb(105, 76, 3)"
+            >
+              Reviews
+            </router-link>
+          </a>
+        </li>
+        <li style="display: inline-block; margin: 0 10px">
+          <a class="nav-link active" aria-current="page">
+            <router-link
               :to="{ name: 'about' }"
               class="nav-link"
               style="color: rgb(105, 76, 3)"
