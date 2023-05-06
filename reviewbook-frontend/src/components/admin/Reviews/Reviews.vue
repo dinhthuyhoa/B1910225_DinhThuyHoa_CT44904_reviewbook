@@ -87,7 +87,7 @@ export default {
     deleteReview(id) {
       Swal.fire({
         title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this user!",
+        text: "Once deleted, you will not be able to recover this review!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -98,7 +98,7 @@ export default {
           BaseAPI.delete(`/api/reviews/${id}`)
             .then((response) => {
               this.reviews = this.reviews.filter((review) => review._id !== id);
-              Swal.fire("Deleted!", "The user has been deleted.", "success");
+              Swal.fire("Deleted!", "The review has been deleted.", "success");
             })
             .catch((error) => {
               console.error(error);

@@ -122,6 +122,58 @@ export default {
 
 <style scoped>
 .img-thumbnail {
-  width: 200px;
+  width: 150px;
+  height: 150px;
+}
+.p-5 {
+  padding: 5rem;
+  font-family: "Courier New", Courier, monospace;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #ccc;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 0;
+  border-color: darkgoldenrod;
+  box-shadow: 0 0 0 0.2rem rgb(184, 134, 11, 0.5);
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: darkgoldenrod;
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+button:hover {
+  background-color: rgb(150, 111, 11);
+}
+
+.form-group {
+  margin-bottom: 1rem;
 }
 </style>

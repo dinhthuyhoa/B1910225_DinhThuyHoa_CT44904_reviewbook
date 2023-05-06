@@ -1,6 +1,6 @@
 <template>
   <div class="p-5">
-    <h1 class="text-dark">Sửa thông tin sách</h1>
+    <h1 class="text-dark">Sửa thông tin người dùng</h1>
     <form class="row" @submit.prevent="editUser">
       <div class="form-group col-12">
         <div v-if="previewImage || user.avatar" class="mt-2">
@@ -171,7 +171,25 @@ export default {
 </script>
 
 <style scoped>
-.img-thumbnail {
-  width: 200px;
-}
+  .p-5 {
+    padding: 5rem;
+    font-family: "Courier New", Courier, monospace;
+  }
+
+  .text-dark {
+    color: #343a40;
+  }
+
+  label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  /* input[type="file"] {
+    margin-top: 0.5rem;
+  } */
+
+  .img-thumbnail {
+    width: 200px;
+  }
 </style>

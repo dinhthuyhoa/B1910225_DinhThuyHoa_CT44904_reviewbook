@@ -149,13 +149,13 @@ input:focus,
 select:focus,
 textarea:focus {
   outline: 0;
-  border-color: #4d90fe;
-  box-shadow: 0 0 0 0.2rem rgba(77, 144, 254, 0.25);
+  border-color: darkgoldenrod;
+  box-shadow: 0 0 0 0.2rem rgb(184, 134, 11, 0.5);
 }
 
 button {
   padding: 0.5rem 1rem;
-  background-color: #4d90fe;
+  background-color: darkgoldenrod;
   color: #fff;
   border: none;
   border-radius: 0.25rem;
@@ -164,7 +164,7 @@ button {
 }
 
 button:hover {
-  background-color: #357ae8;
+  background-color: rgb(150, 111, 11);
 }
 
 .form-group {
