@@ -1,38 +1,44 @@
 <template>
   <div class="p-5">
-    <h1>Chỉnh sửa người dùng</h1>
-    <form class="row">
-      <div class="form-group col-6">
-        <label for="name">Họ và tên</label>
-        <input type="text" class="form-control" id="name" v-model="user.name" />
-      </div>
-      <div class="form-group col-6">
-        <label for="role">Vai trò</label>
-        <select class="form-control" id="role" v-model="user.role">
-          <option value="admin">Admin</option>
-          <option value="reviewer">Reviewer</option>
-          <option value="customer">Customer</option>
-        </select>
-      </div>
-      <div class="form-group col-6">
-        <label for="email">Email</label>
+    <h1>Cập nhật thông tin sách</h1>
+    <form>
+      <div class="form-group col-12">
+        <div v-if="previewImage" class="mt-2">
+          <img :src="previewImage" class="img-thumbnail" />
+        </div>
+        <label for="image">Hình ảnh</label>
         <input
-          type="email"
+          type="file"
           class="form-control"
-          id="email"
-          v-model="user.email"
+          id="image"
+          accept="image/*"
+          @change="onFileSelected"
         />
       </div>
-      <div class="form-group col-6">
-        <label for="phone">Số điện thoại</label>
+      <div class="form-group col-12">
+        <label for="title">Tiêu đề</label>
         <input
           type="text"
           class="form-control"
-          id="phone"
-          v-model="user.phone"
+          id="title"
+          v-model="book.title"
         />
       </div>
-      <button type="submit" class="btn " @click.prevent="updateUser" style="background-color: darkgoldenrod;" >
+      <div class="form-group col-12">
+        <label for="content">Nội dung</label>
+        <textarea
+          type="text"
+          class="form-control"
+          id="content"
+          v-model="book.content"
+        ></textarea>
+      </div>
+      <div class="form-group col-12">
+        <label for="date">Ngày xuất bản</label>
+        <input type="date" class="form-control" id="date" v-model="book.date" />
+      </div>
+
+      <button type="submit" class="btn " @click.prevent="updateBook" style="background-color: darkgoldenrod;" >
         Save
       </button>
     </form>
@@ -92,28 +98,28 @@ import BaseAPI from "@/services/api.service";
 import Swal from "sweetalert2";
 
 export default {
-  name: "EditUser",
+  name: "EditBook",
   data() {
     return {
-      user: {},
+      book: {},
     };
   },
   created() {
     const id = this.$route.params.id;
-    BaseAPI.get(`/api/users/${id}`)
+    BaseAPI.get(`/api/books/${id}`)
       .then((response) => {
         console.log(response.data);
-        this.user = response.data;
+        this.book = response.data;
       })
       .catch((error) => {
         console.error(error);
       });
   },
   methods: {
-    updateUser() {
+    updateBook() {
       Swal.fire({
         title: "Bạn có chắc chắn?",
-        text: "Thông tin người dùng sẽ được cập nhật mới",
+        text: "Thông tin sách sẽ được cập nhật mới",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -121,10 +127,10 @@ export default {
         confirmButtonText: "Cập nhật?",
       }).then((result) => {
         if (result.isConfirmed) {
-          BaseAPI.put(`/api/users/${this.user._id}`, this.user)
+          BaseAPI.put(`/api/books/${this.book._id}`, this.book)
             .then((response) => {
               console.log(response.data);
-              Swal.fire("Updated!", "Thông tin người dùng đã được cập nhật", "success");
+              Swal.fire("Updated!", "Thông tin sách đã được cập nhật", "success");
             })
             .catch((error) => {
               console.error(error);

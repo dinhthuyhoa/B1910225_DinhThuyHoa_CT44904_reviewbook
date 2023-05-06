@@ -1,6 +1,6 @@
 <template>
   <div class="p-5">
-    <h1>Quản lý sách</h1>
+    <h1>Quản lý kho sách</h1>
     <table class="table">
       <thead>
         <tr>
@@ -19,7 +19,7 @@
           <td>{{ book.author }}</td>
           <td>{{ book.date }}</td>
           <td class="d-flex justify-content-center" style="gap: 10px">
-            <button class="btn btn-primary">
+            <button class="btn" style="background-color: darkgoldenrod;" >
               <font-awesome-icon :icon="['fas', 'edit']" />
             </button>
             <button class="btn btn-danger" @click="deleteBook(book._id)">
@@ -34,6 +34,20 @@
     </table>
   </div>
 </template>
+
+<style scoped>
+.p-5 {
+  font-family: "Courier New", Courier, monospace;
+}
+.table {
+  margin-top: 6%;
+}
+
+.table th {
+  font-weight: bold;
+}
+</style>
+
 
 <script>
 import BaseAPI from "@/services/api.service";

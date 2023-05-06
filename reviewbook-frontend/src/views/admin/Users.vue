@@ -1,6 +1,6 @@
 <template>
   <div class="p-5">
-    <h1>Users</h1>
+    <h1>Danh sách người dùng</h1>
     <table class="table">
       <thead>
         <tr>
@@ -8,7 +8,7 @@
           <th>Họ và tên</th>
           <th>Email</th>
           <th>Số điện thoại</th>
-          <th>Loại người dùng</th>
+          <th>Vai trò</th>
           <th class="text-center">Hành động</th>
         </tr>
       </thead>
@@ -20,7 +20,7 @@
           <td>{{ user.phone }}</td>
           <td>{{ user.role }}</td>
           <td class="d-flex justify-content-center" style="gap: 10px">
-            <button class="btn btn-primary" >
+            <button class="btn" style="background-color: darkgoldenrod;">
               <font-awesome-icon :icon="['fas', 'edit']" />
             </button>
             <button class="btn btn-danger" @click="deleteUser(user._id)">
@@ -29,12 +29,25 @@
           </td>
         </tr>
         <tr v-if="users.length < 1">
-          <td colspan="6" class="text-center"><h4>No data</h4></td>
+          <td colspan="6" class="text-center"><h4>Không có dữ liệu</h4></td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
+
+<style scoped>
+.p-5 {
+  font-family: "Courier New", Courier, monospace;
+}
+.table {
+  margin-top: 6%;
+}
+
+.table th {
+  font-weight: bold;
+}
+</style>
 
 <script>
 import BaseAPI from "@/services/api.service";
@@ -60,20 +73,20 @@ export default {
   methods: {
     deleteUser(id) {
       Swal.fire({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this user!",
+        title: "Bạn có chắc chắn muốn xóa?",
+        text: "Một khi đã xóa, bạn sẽ không thể khôi phục lại người dùng này!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonText: "Xóa người dùng khỏi danh sách?",
       }).then((result) => {
         if (result.isConfirmed) {
           BaseAPI.delete(`/api/users/${id}`)
             .then((response) => {
               const index = this.users.findIndex((user) => user.id === id);
               this.users.splice(index, 1);
-              Swal.fire("Deleted!", "The user has been deleted.", "success");
+              Swal.fire("Deleted!", "Người dùng đã được xóa khỏi danh sách!", "success");
             })
             .catch((error) => {
               console.error(error);
@@ -84,3 +97,4 @@ export default {
   },
 };
 </script>
+

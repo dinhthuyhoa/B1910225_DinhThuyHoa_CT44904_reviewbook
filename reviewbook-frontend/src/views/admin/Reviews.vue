@@ -33,7 +33,18 @@
     </table>
   </div>
 </template>
+<style scoped>
+.p-5 {
+  font-family: "Courier New", Courier, monospace;
+}
+.table {
+  margin-top: 6%;
+}
 
+.table th {
+  font-weight: bold;
+}
+</style>
 <script>
 import BaseAPI from "@/services/api.service";
 import Swal from "sweetalert2";

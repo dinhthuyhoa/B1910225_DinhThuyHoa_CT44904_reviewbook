@@ -75,9 +75,6 @@
 
   }
 
-  iframe {
-    /* margin-top: 10%; */
-  }
   .bg-light {
     background-color: #f5f5f5;
   }

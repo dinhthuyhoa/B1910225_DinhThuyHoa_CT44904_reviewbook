@@ -47,6 +47,7 @@ export default {
 
 <style scoped>
 .navbar {
+  font-family: "Courier New", Courier, monospace;
   height: 82px;
   background-color: #fff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);

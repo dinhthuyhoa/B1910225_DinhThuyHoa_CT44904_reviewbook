@@ -1,13 +1,13 @@
 <template>
   <div class="p-5">
-    <h1>Create New User</h1>
+    <h1>Thêm người dùng mới</h1>
     <form class="row">
       <div class="form-group col-6">
-        <label for="name">Name</label>
+        <label for="name">Họ và tên</label>
         <input type="text" class="form-control" id="name" v-model="user.name" />
       </div>
       <div class="form-group col-6">
-        <label for="role">Role</label>
+        <label for="role">Vai trò</label>
         <select class="form-control" id="role" v-model="user.role">
           <option value="admin">Admin</option>
           <option value="reviewer">Reviewer</option>
@@ -24,7 +24,7 @@
         />
       </div>
       <div class="form-group col-6">
-        <label for="phone">Phone</label>
+        <label for="phone">Số điện thoại</label>
         <input
           type="text"
           class="form-control"
@@ -33,7 +33,7 @@
         />
       </div>
       <div class="form-group col-6">
-        <label for="password">Password</label>
+        <label for="password">Mật khẩu</label>
         <input
           type="password"
           class="form-control"
@@ -41,14 +41,62 @@
           v-model="user.password"
         />
       </div>
-      <div class="col-12">
-        <button class="btn btn-primary" @click.prevent="createUser()">
-          Create User
+      <div class="col-12"> 
+        <button class="btn" @click.prevent="createUser()" style="background-color: darkgoldenrod;" >
+          Thêm người dùng
         </button>
       </div>
     </form>
   </div>
 </template>
+
+<style scoped>
+  .p-5 {
+    padding: 5rem;
+    font-family: "Courier New", Courier, monospace;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+    transition: border-color 0.2s ease-in-out;
+  }
+
+  input:focus,
+  select:focus {
+    outline: none;
+    border-color: darkgoldenrod;
+  }
+
+  button {
+    margin-top: 2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    background-color: darkgoldenrod;
+    color: #fff;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  button:hover {
+    background-color: #ffc107;
+  }
+</style>
 
 <script>
 import BaseAPI from "@/services/api.service";
@@ -63,7 +111,7 @@ export default {
         email: "",
         phone: "",
         password: "",
-        role: "customer",
+        role: "", //
       },
     };
   },
@@ -72,7 +120,7 @@ export default {
       BaseAPI.post("/api/users", this.user)
         .then((response) => {
           console.log(response.data);
-          Swal.fire("Created!", "The user has been created.", "success");
+          Swal.fire("Created!", "Người dùng mới được thêm vào danh sách!", "success");
         })
         .catch((error) => {
           console.error(error);

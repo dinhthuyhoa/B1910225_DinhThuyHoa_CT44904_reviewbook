@@ -26,7 +26,7 @@ export default {
   </div>
 </template>
 
-<style>
+<style scoped>
 .page {
   max-width: 400px;
   margin: auto;

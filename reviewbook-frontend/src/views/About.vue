@@ -49,7 +49,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .body-about{
 padding: 0 200px;
 }

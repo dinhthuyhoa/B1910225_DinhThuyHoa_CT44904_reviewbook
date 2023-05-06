@@ -1,46 +1,34 @@
 <template>
   <div class="p-5">
-    <h1>Thêm sách vào kho sách</h1>
-    <form class="row" @submit.prevent="createBook()">
-      <div class="form-group col-12">
-        <div v-if="previewImage" class="mt-2">
-          <img :src="previewImage" class="img-thumbnail" />
-        </div>
-        <label for="image">Hình ảnh</label>
-        <input
-          type="file"
-          class="form-control"
-          id="image"
-          accept="image/*"
-          @change="onFileSelected"
-        />
-      </div>
+    <h1>Thêm bài review sách</h1>
+    <form class="row">
+
       <div class="form-group col-12">
         <label for="title">Tiêu đề</label>
         <input
           type="text"
           class="form-control"
           id="title"
-          v-model="book.title"
+          v-model="review.title"
         />
       </div>
       <div class="form-group col-12">
-        <label for="content">Nội dung</label>
+        <label for="author">Người đánh giá</label>
         <textarea
           type="text"
           class="form-control"
-          id="content"
-          v-model="book.content"
+          id="author"
+          v-model="review.author"
         ></textarea>
       </div>
       <div class="form-group col-12">
-        <label for="date">Ngày xuất bản</label>
-        <input type="date" class="form-control" id="date" v-model="book.date" />
+        <label for="book">Sách</label>
+        <input type="text" class="form-control" id="book" v-model="review.book" />
       </div>
 
       <div class="col-12">
-        <button class="btn btn-primary" @click.prevent="createBook()">
-          Thêm sách
+        <button class="btn btn-primary" @click.prevent="createReview()">
+          Thêm review
         </button>
       </div>
     </form>
@@ -52,55 +40,55 @@ import BaseAPI from "@/services/api.service";
 import Swal from "sweetalert2";
 
 export default {
-  name: "CreateNewBook",
+  name: "CreateReview",
   data() {
     return {
       book: {
         title: "",
-        content: "",
-        date: "",
-        image: null,
+        author: "",
+        book: "",
+        //image: null,
       },
-      previewImage: null,
+      //previewImage: null,
     };
   },
   methods: {
-    createBook() {
+    createReview() {
       const formData = new FormData();
-      formData.append("title", this.book.title);
-      formData.append("content", this.book.content);
-      formData.append("date", this.book.date);
-      formData.append("image", this.book.image);
-      BaseAPI.post("/api/books", formData, {
+      formData.append("title", this.review.title);
+      formData.append("author", this.review.author);
+      formData.append("book", this.review.book);
+      //formData.append("image", this.book.image);
+      BaseAPI.post("/api/reviews", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
         .then((response) => {
           console.log(response.data);
-          Swal.fire("Created!", "Sách đã được thêm vào kho!", "success");
+          Swal.fire("Created!", "Bài review sách đã được thêm!", "success");
         })
         .catch((error) => {
           console.error(error);
         });
     },
-    onFileSelected(event) {
-      this.book.image = event.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(this.book.image);
-      reader.onload = (event) => {
-        this.previewImage = event.target.result;
-      };
-    },
+    // onFileSelected(event) {
+    //   this.book.image = event.target.files[0];
+    //   const reader = new FileReader();
+    //   reader.readAsDataURL(this.book.image);
+    //   reader.onload = (event) => {
+    //     this.previewImage = event.target.result;
+    //   };
+    // },
   },
 };
 </script>
 
 <style scoped>
-.img-thumbnail {
+/* .img-thumbnail {
   width: 150px;
   height: 150px;
-}
+} */
 
 .p-5 {
   padding: 5rem;
