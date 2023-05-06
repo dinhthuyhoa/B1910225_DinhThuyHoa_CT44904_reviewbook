@@ -4,7 +4,7 @@
       <h2 class="login-title">Đăng nhập</h2>
       <form class="form-input" @submit.prevent="login">
         <div class="form-group">
-          <label for="username">Tên đăng nhập</label>
+          <label for="username">Email</label>
           <input
             type="text"
             id="username"
@@ -51,6 +51,7 @@ export default {
     return {
       username: "",
       password: "",
+      isUserLoggedIn: localStorage.getItem("userLogin") ? true : false,
     };
   },
   beforeRouteEnter(to, from, next) {
@@ -136,11 +137,12 @@ export default {
   align-items: center;
 }
 .form-group label {
+  width: 30%;
   margin-top: 6px;
   margin-right: 5px;
   font-weight: bold;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 }
 .form-control {

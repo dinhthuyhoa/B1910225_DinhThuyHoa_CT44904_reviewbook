@@ -34,7 +34,7 @@
         </div>
 
         <div class="form-group">
-          <label for="confirmPassword">Xác nhận mật khẩu</label>
+          <label for="confirmPassword">Xác nhận</label>
           <input
             type="password"
             class="form-control"
@@ -72,6 +72,7 @@ export default {
       confirmPassword: "",
       phone: "",
       email: "",
+      isUserLoggedIn: localStorage.getItem("userLogin") ? true : false,
     };
   },
   methods: {
@@ -153,11 +154,12 @@ export default {
   align-items: center;
 }
 .form-group label {
+  width: 60%;
   margin-top: 6px;
   margin-right: 5px;
   font-weight: bold;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 }
 .form-control {
