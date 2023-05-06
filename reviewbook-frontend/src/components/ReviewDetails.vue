@@ -2,19 +2,20 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h1 class="text-center">{{ review.title }}</h1>
+        <h1 class="text-center text-white">{{ review.title }}</h1>
       </div>
     </div>
     <div class="row">
       <div class="col-md-4">
         <img
-          :src="getBookById(review.book_id)"
+          :src="getBookById(review.book_id).image"
           class="img-fluid"
           alt="Review image"
         />
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 text-white">
         <h4>Tác giả: {{ review.author }}</h4>
+        <h4>Sách review: {{ getBookById(review.book_id).title }}</h4>
         <p class="text-muted">{{ formatDate(review.date) }}</p>
         <p>{{ review.content }}</p>
       </div>
@@ -49,8 +50,7 @@ export default {
       BaseAPI.get("/api/books")
         .then((response) => {
           this.books = response.data.reduce((acc, curr) => {
-            acc[curr._id] = curr.title;
-            acc[curr._id] = curr.image;
+            acc[curr._id] = curr;
             return acc;
           }, {});
         })

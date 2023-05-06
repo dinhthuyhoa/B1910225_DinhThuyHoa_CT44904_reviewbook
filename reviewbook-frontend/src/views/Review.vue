@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
+  <div class="container my-5">
     <div class="row">
       <div class="col-md-12">
-        <h1 class="text-center">Bài review mới nhất</h1>
+        <h1 class="text-center text-white my-5">Các bài review</h1>
       </div>
     </div>
     <div class="row">
@@ -15,7 +15,7 @@
           >
             <div class="card" v-for="(review, index) in reviews" :key="index">
               <img
-                :src="getBookById(review.book_id)"
+                :src="getBookById(review.book_id).image"
                 class="card-img-top"
                 alt="Review image"
               />
@@ -63,8 +63,7 @@ export default {
       BaseAPI.get("/api/books")
         .then((response) => {
           this.books = response.data.reduce((acc, curr) => {
-            acc[curr._id] = curr.title;
-            acc[curr._id] = curr.image;
+            acc[curr._id] = curr;
             return acc;
           }, {});
         })
