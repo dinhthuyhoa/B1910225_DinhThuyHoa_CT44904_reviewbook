@@ -3,8 +3,6 @@ const MongoDB = require("../utils/mongodb.util");
 const ApiError = require("../api-error");
 
 
-
-// findUserById: tìm kiếm một user cụ thể trong User collection bằng id.
 exports.login = async (req, res, next) => {
     if (!req.body?.username) {
         return next(new ApiError(400, "Username không được bỏ trống !!!"));
@@ -15,20 +13,39 @@ exports.login = async (req, res, next) => {
 
     try {
         const authService = new AuthService(MongoDB.client);
-        const checkLogin = await authService.login(req.body?.username, req.body?.password);
+        const user = await authService.login(req.body?.username, req.body?.password);
 
-        if (checkLogin != false) {
-            return res.send(checkLogin);
-        } else {
-            return res.send('Tài khoản hoặc mật khẩu sai');
-        }
+        return res.send(user);
 
     } catch (error) {
         return next(
-            new ApiError(500, `Đã xãy ra lỗi trong quá trình tìm người dùng với id=${req.params.id}`)
+            new ApiError(401, error.message)
         );
     }
 };
 
 
 
+exports.register = async (req, res, next) => {
+    if (!req.body?.email) {
+        return next(new ApiError(400, "Email không được bỏ trống!"));
+    }
+    if (!req.body?.phone) {
+        return next(new ApiError(400, "Phone không được bỏ trống!"));
+    }
+    if (!req.body?.password) {
+        return next(new ApiError(400, "Password không được bỏ trống!"));
+    }
+
+    try {
+        const authService = new AuthService(MongoDB.client);
+        const userId = await authService.register(req.body);
+
+        return res.status(201).json({
+            message: "User đã được tạo thành công!",
+            userId: userId,
+        });
+    } catch (error) {
+        return next(new ApiError(500, error.message));
+    }
+};

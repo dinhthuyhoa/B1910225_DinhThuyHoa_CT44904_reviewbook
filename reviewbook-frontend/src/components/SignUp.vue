@@ -1,55 +1,123 @@
 <template>
   <div class="signup-container">
     <div class="signup-form">
-      <h2 class="signup-title">Sign Up</h2>
-      <form class="form-input">
+      <h2 class="signup-title">Đăng ký</h2>
+      <form class="form-input" @submit.prevent="signup">
         <div class="form-group">
-          <label for="username">Username</label>
+          <label for="phone">Số điện thoại</label>
           <input
             type="text"
-            id="username"
-            name="username"
+            id="phone"
+            name="phone"
+            v-model="phone"
             class="form-control"
           />
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="email">Email</label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            v-model="email"
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Mật khẩu</label>
           <input
             type="password"
+            class="form-control"
             id="password"
-            name="password"
-            class="form-control"
+            v-model="password"
           />
         </div>
+
         <div class="form-group">
-          <label for="confirm-password">Confirm Password</label>
+          <label for="confirmPassword">Xác nhận mật khẩu</label>
           <input
             type="password"
-            id="confirm-password"
-            name="confirm-password"
             class="form-control"
-            style="min-width: 292px;"
+            id="confirmPassword"
+            v-model="confirmPassword"
           />
         </div>
-        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <button type="submit" class="btn btn-primary">Đăng ký</button>
         <div class="login-link">
           <p class="login">
             Bạn đã có tài khoản?
-            <a class="nav-link active" aria-current="page">
-              <router-link
-                :to="{ name: 'login' }"
-                class="nav-link"
-                style="color: rgb(105, 76, 3)"
-              >
-                Login
-              </router-link>
-            </a>
+            <router-link
+              :to="{ name: 'login' }"
+              class="nav-link active"
+              style="color: rgb(105, 76, 3)"
+            >
+              Đăng nhập
+            </router-link>
           </p>
         </div>
       </form>
     </div>
   </div>
 </template>
+
+<script>
+import BaseAPI from "@/services/api.service";
+import Swal from "sweetalert2";
+
+export default {
+  name: "Signup",
+  data() {
+    return {
+      password: "",
+      confirmPassword: "",
+      phone: "",
+      email: "",
+    };
+  },
+  methods: {
+    async signup() {
+      if (this.password !== this.confirmPassword) {
+        Swal.fire({
+          icon: "error",
+          title: "Lỗi!",
+          text: "Mật khẩu không khớp",
+        });
+        return;
+      }
+      try {
+        const response = await BaseAPI.post("/api/auth/register", {
+          username: this.username,
+          password: this.password,
+          phone: this.phone,
+          email: this.email,
+        });
+        // Xử lý kết quả trả về nếu cần
+        if (response.data) {
+          console.log(response.data);
+          // Lưu thông tin đăng nhập vào localStorage
+          localStorage.setItem("userLogin", response.data);
+
+          Swal.fire({
+            icon: "success",
+            title: "Thành công!",
+            text: "Đăng ký thành công",
+          });
+
+          // Chuyển hướng về trang home
+          this.$router.push({ name: "home" });
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Lỗi!",
+          html: error.response.data.message,
+        });
+      }
+    },
+  },
+};
+</script>
+
 
 <style scoped>
 .form-input {

@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import AdminNavbar from "@/components/AdminNavbar.vue";
-import AdminSidebar from "@/components/AdminSidebar.vue";
+import AdminNavbar from "@/components/admin/AdminNavbar.vue";
+import AdminSidebar from "@/components/admin/AdminSidebar.vue";
 
 export default {
   name: "AdminLayout",
@@ -27,7 +27,7 @@ export default {
 <style scoped>
 .admin-layout {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #f5f5f5;
 }
 

@@ -9,13 +9,12 @@ class AuthService {
 
     extractUserData(payload) {
         const user = {
+            avatar: payload.avatar,
             email: payload.email,
             phone: payload.phone,
             password: payload.password,
             name: payload.name,
-            address: payload.address,
             role: payload.role,
-            status: payload.status
         };
 
         // Remove undefined fields
@@ -25,17 +24,38 @@ class AuthService {
         return user;
     }
 
-    async login(username, password) {
-        const login = await this.find({
-            email: { $regex: new RegExp(username), $options: "i" },
+    async login(email, password) {
+        const user = await this.find({
+            email: { $regex: new RegExp(email), $options: "i" },
             password: { $regex: new RegExp(password), $options: "i" },
         });
-        return login;
+        if (user.length === 0) {
+            throw new Error("Sai tài khoản hoặc mật khẩu");
+        }
+        return user[0];
+    }
+
+
+
+    async register(payload) {
+        const user = this.extractUserData(payload);
+        const existingUser = await this.find({ email: user.email });
+        const existingUser2 = await this.find({ phone: user.phone });
+
+        if (existingUser.length > 0) {
+            throw new Error("Email đã tồn tại!");
+        }
+        if (existingUser2.length > 0) {
+            throw new Error("Phone đã tồn tại!");
+        }
+
+        const result = await this.User.insertOne(user);
+        return result.insertedId;
     }
 
     async find(filter) {
-        const cursor = await this.User.find(filter);
-        return await cursor.toArray();
+        const result = await this.User.find(filter).toArray();
+        return result;
     }
 
 }

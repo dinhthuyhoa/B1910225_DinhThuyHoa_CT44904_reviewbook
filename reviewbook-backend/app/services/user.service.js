@@ -1,5 +1,3 @@
-//const User = require('../models/user.model');
-
 const { ObjectId } = require("mongodb");
 
 class UserService {
@@ -10,15 +8,13 @@ class UserService {
 
   extractUserData(payload) {
     const user = {
+      name: payload.name,
       email: payload.email,
       phone: payload.phone,
       password: payload.password,
-      name: payload.name,
-      address: payload.address,
       role: payload.role,
-      status: payload.status
+      avatar: payload.avatar,
     };
-
     // Remove undefined fields
     Object.keys(user).forEach(
       (key) => user[key] === undefined && delete user[key]
@@ -46,9 +42,10 @@ class UserService {
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
     });
   }
-  async findUserByName(username) {
+
+  async findUserByName(name) {
     return await this.find({
-      username: { $regex: new RegExp(username), $options: "i" },
+      name: { $regex: new RegExp(name), $options: "i" },
     });
   }
 

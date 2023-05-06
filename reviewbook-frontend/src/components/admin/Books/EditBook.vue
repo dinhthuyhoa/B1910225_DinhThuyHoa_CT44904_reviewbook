@@ -1,10 +1,13 @@
 <template>
   <div class="p-5">
-    <h1>Thêm sách vào kho sách</h1>
-    <form class="row" @submit.prevent="createBook()">
+    <h1 class="text-dark">Sửa thông tin sách</h1>
+    <form class="row" @submit.prevent="editBook">
       <div class="form-group col-12">
-        <div v-if="previewImage" class="mt-2">
-          <img :src="previewImage" class="img-thumbnail" />
+        <div v-if="previewImage || book.image" class="mt-2">
+          <img
+            :src="previewImage ? previewImage : book.image"
+            class="img-thumbnail"
+          />
         </div>
         <label for="image">Hình ảnh</label>
         <input
@@ -25,72 +28,93 @@
         />
       </div>
       <div class="form-group col-12">
-        <label for="content">Nội dung</label>
-        <textarea
+        <label for="author">Tác giả</label>
+        <input
           type="text"
           class="form-control"
-          id="content"
-          v-model="book.content"
-        ></textarea>
+          id="author"
+          v-model="book.author"
+        />
       </div>
       <div class="form-group col-12">
         <label for="date">Ngày xuất bản</label>
         <input type="date" class="form-control" id="date" v-model="book.date" />
       </div>
-
       <div class="col-12">
-        <button class="btn btn-primary" @click.prevent="createBook()">
-          Thêm sách
-        </button>
+        <button class="btn btn-primary" type="submit">Cập nhật</button>
       </div>
     </form>
   </div>
 </template>
-
 <script>
 import BaseAPI from "@/services/api.service";
 import Swal from "sweetalert2";
 
 export default {
-  name: "CreateNewBook",
+  name: "EditBook",
   data() {
     return {
       book: {
         title: "",
-        content: "",
+        author: "",
         date: "",
         image: null,
       },
       previewImage: null,
     };
   },
+  mounted() {
+    this.getBook();
+  },
   methods: {
-    createBook() {
+    getBook() {
+      const bookId = this.$route.params.id;
+      BaseAPI.get(`/api/books/${bookId}`)
+        .then((response) => {
+          this.book = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    editBook() {
       const formData = new FormData();
       formData.append("title", this.book.title);
-      formData.append("content", this.book.content);
+      formData.append("author", this.book.author);
       formData.append("date", this.book.date);
       formData.append("image", this.book.image);
-      BaseAPI.post("/api/books", formData, {
+
+      const bookId = this.$route.params.id;
+      BaseAPI.put(`/api/books/${bookId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
-        .then((response) => {
-          console.log(response.data);
-          Swal.fire("Created!", "Sách đã được thêm vào kho!", "success");
+        .then(() => {
+          Swal.fire({
+            icon: "success",
+            title: "Thành công!",
+            text: "Cập nhật sách thành công",
+          });
+          this.$router.push("/admin/books");
         })
         .catch((error) => {
-          console.error(error);
+          Swal.fire({
+            icon: "error",
+            title: "Lỗi!",
+            html:
+              "Cập nhật sách không thành công.<br>" +
+              error.response.data.message,
+          });
         });
     },
     onFileSelected(event) {
       this.book.image = event.target.files[0];
       const reader = new FileReader();
-      reader.readAsDataURL(this.book.image);
-      reader.onload = (event) => {
-        this.previewImage = event.target.result;
+      reader.onload = (e) => {
+        this.previewImage = e.target.result;
       };
+      reader.readAsDataURL(event.target.files[0]);
     },
   },
 };
@@ -98,52 +122,6 @@ export default {
 
 <style scoped>
 .img-thumbnail {
-  width: 150px;
-  height: 150px;
-}
-
-.p-5 {
-  padding: 5rem;
-  font-family: "Courier New", Courier, monospace;
-}
-
-h1 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-}
-
-label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-input,
-select {
-  width: 100%;
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  border: 1px solid #ccc;
-  transition: border-color 0.2s ease-in-out;
-}
-
-input:focus,
-select:focus {
-  outline: none;
-  border-color: darkgoldenrod;
-}
-
-button {
-  margin-top: 2rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  background-color: darkgoldenrod;
-  color: #fff;
-  font-weight: bold;
-  transition: background-color 0.2s ease-in-out;
-}
-
-button:hover {
-  background-color: #ffc107;
+  width: 200px;
 }
 </style>

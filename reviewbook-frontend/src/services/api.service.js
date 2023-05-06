@@ -5,7 +5,7 @@ const BaseURL = 'http://localhost:3000'
 const BaseAPI = axios.create({
     baseURL: BaseURL,
     headers: {
-        'Content-Type': 'Application/json',
+        "Content-type": "application/json",
         "Authorization": 'admin'
     }
 })

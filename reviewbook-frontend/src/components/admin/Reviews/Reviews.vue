@@ -1,6 +1,6 @@
 <template>
   <div class="p-5">
-    <h1>Quản lý bài review sách</h1>
+    <h1 class="text-dark">Quản lý bài review sách</h1>
     <table class="table">
       <thead>
         <tr>
@@ -16,9 +16,9 @@
           <td>{{ index + 1 }}</td>
           <td>{{ review.title }}</td>
           <td>{{ review.author }}</td>
-          <td>{{ review.book }}</td>
+          <td>{{ getBookById(review.book_id) }}</td>
           <td class="d-flex justify-content-center" style="gap: 10px">
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" @click="editReview(review._id)">
               <font-awesome-icon :icon="['fas', 'edit']" />
             </button>
             <button class="btn btn-danger" @click="deleteReview(review._id)">
@@ -50,10 +50,11 @@ import BaseAPI from "@/services/api.service";
 import Swal from "sweetalert2";
 
 export default {
-  name: "AdminUsers",
+  name: "Reviews",
   data() {
     return {
       reviews: [],
+      books: {},
     };
   },
   mounted() {
@@ -61,12 +62,28 @@ export default {
       .then((response) => {
         console.log(response.data);
         this.reviews = response.data;
+        this.loadBooks();
       })
       .catch((error) => {
         console.error(error);
       });
   },
   methods: {
+    loadBooks() {
+      BaseAPI.get("/api/books")
+        .then((response) => {
+          this.books = response.data.reduce((acc, curr) => {
+            acc[curr._id] = curr.title;
+            return acc;
+          }, {});
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    getBookById(bookId) {
+      return this.books[bookId] || "Không có sách";
+    },
     deleteReview(id) {
       Swal.fire({
         title: "Are you sure?",
@@ -80,10 +97,7 @@ export default {
         if (result.isConfirmed) {
           BaseAPI.delete(`/api/reviews/${id}`)
             .then((response) => {
-              const index = this.reviews.findIndex(
-                (review) => review.id === id
-              );
-              this.reviews.splice(index, 1);
+              this.reviews = this.reviews.filter((review) => review._id !== id);
               Swal.fire("Deleted!", "The user has been deleted.", "success");
             })
             .catch((error) => {
@@ -91,6 +105,9 @@ export default {
             });
         }
       });
+    },
+    editReview(id) {
+      this.$router.push({ name: "EditReview", params: { id: id } });
     },
   },
 };

@@ -49,47 +49,59 @@ const routes = [
 
             {
                 path: "users",
-                name: "users",
-                component: () => import("@/views/admin/Users.vue"),
+                name: "Users",
+                component: () => import("@/components/admin/Users/Users.vue"),
 
             },
 
             {
                 path: "users/create",
                 name: "CreateNewUser",
-                component: () => import("@/components/CreateNewUser.vue"),
+                component: () => import("@/components/admin/Users/CreateNewUser.vue"),
             },
 
             {
                 path: "users/:id",
-                name: "EditNewUser",
-                component: () => import("@/components/EditNewUser.vue"),
+                name: "EditUser",
+                component: () => import("@/components/admin/Users/EditUser.vue"),
             },
 
             {
                 path: "books",
-                name: "books",
-                component: () => import("@/views/admin/Books.vue"),
+                name: "Books",
+                component: () => import("@/components/admin/Books/Books.vue"),
 
             },
 
             {
                 path: "books/create",
                 name: "CreateNewBook",
-                component: () => import("@/components/CreateNewBook.vue"),
+                component: () => import("@/components/admin/Books/CreateNewBook.vue"),
+            },
+
+            {
+                path: "books/:id",
+                name: "EditBook",
+                component: () => import("@/components/admin/Books/EditBook.vue"),
             },
 
             {
                 path: "reviews",
-                name: "reviews",
-                component: () => import("@/views/admin/Reviews.vue"),
+                name: "Reviews",
+                component: () => import("@/components/admin/Reviews/Reviews.vue"),
 
             },
-            
+
             {
                 path: "reviews/create",
-                name: "CreateReview",
-                component: () => import("@/components/CreateReviewBook.vue"),
+                name: "CreateNewReview",
+                component: () => import("@/components/admin/Reviews/CreateNewReview.vue"),
+            },
+
+            {
+                path: "reviews/:id",
+                name: "EditReview",
+                component: () => import("@/components/admin/Reviews/EditReview.vue"),
             },
         ]
     }

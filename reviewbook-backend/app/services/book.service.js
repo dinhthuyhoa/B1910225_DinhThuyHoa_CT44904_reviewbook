@@ -1,5 +1,3 @@
-//const User = require('../models/user.model');
-
 const { ObjectId } = require("mongodb");
 
 class BookService {
@@ -10,13 +8,10 @@ class BookService {
 
   extractBookData(payload) {
     const book = {
-      email: payload.email,
-      phone: payload.phone,
-      password: payload.password,
-      name: payload.name,
-      address: payload.address,
-      role: payload.role,
-      status: payload.status
+      title: payload.title,
+      author: payload.author,
+      date: payload.date,
+      image: payload.image
     };
 
     // Remove undefined fields

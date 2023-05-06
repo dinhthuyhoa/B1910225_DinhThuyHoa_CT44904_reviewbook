@@ -1,22 +1,25 @@
 const express = require("express");
 const cors = require("cors");
 const authRouter = require("./app/routes/auth.route");
-const usersRouter = require("./app/routes/user.route");
-const adminRouter = require("./app/routes/admin.route");
+const userRouter = require("./app/routes/user.route");
+const bookRouter = require("./app/routes/book.route");
+const reviewRouter = require("./app/routes/review.route");
 const ApiError = require("./app/api-error");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static('public'));
 
 app.get("/", (req, res) => {
-	res.json({ message: "Welcome to review book application."});
+	res.json({ message: "Welcome to review book application." });
 });
 
-app.use("/api/users", usersRouter);
-app.use("/api/admins", adminRouter);
-app.use("/api/auth", authRouter)
+app.use("/api/users", userRouter);
+app.use("/api/books", bookRouter);
+app.use("/api/reviews", reviewRouter);
+app.use("/api/auth", authRouter);
 
 // handle 404 response
 app.use((req, res, next) => {
@@ -33,6 +36,6 @@ app.use((err, req, res, next) => {
 	return res.status(err.statusCode || 500).json({
 		message: err.message || "Internal Server Error",
 	});
-});	
+});
 
 module.exports = app;
