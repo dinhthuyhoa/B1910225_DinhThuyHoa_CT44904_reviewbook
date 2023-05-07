@@ -15,10 +15,23 @@ const routes = [
                 component: () => import("@/components/Login.vue"),
 
             },
+
             {
                 path: "",
                 name: "home",
                 component: Home,
+            },
+
+            {
+                path: "reviews",
+                name: "review-client",
+                component: () => import("@/views/Review.vue"),
+            },
+
+            {
+                path: "reviews/:id",
+                name: "review-details",
+                component: () => import("@/components/ReviewDetails.vue"),
             },
 
             {
@@ -27,12 +40,14 @@ const routes = [
                 component: () => import("@/views/Contact.vue"),
 
             },
+
             {
                 path: "about",
                 name: "about",
                 component: () => import("@/views/About.vue"),
 
             },
+
             {
                 path: "signup",
                 name: "signup",

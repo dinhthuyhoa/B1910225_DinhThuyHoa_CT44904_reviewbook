@@ -28,6 +28,17 @@
         <li style="display: inline-block; margin: 0 10px">
           <a class="nav-link active" aria-current="page">
             <router-link
+              :to="{ name: 'review-client' }"
+              class="nav-link"
+              style="color: rgb(105, 76, 3)"
+            >
+              Reviews
+            </router-link>
+          </a>
+        </li>
+        <li style="display: inline-block; margin: 0 10px">
+          <a class="nav-link active" aria-current="page">
+            <router-link
               :to="{ name: 'about' }"
               class="nav-link"
               style="color: rgb(105, 76, 3)"
@@ -72,15 +83,43 @@
         </li>
         <li style="display: inline-block; margin: 0 10px">
           <a class="nav-link active">
-            <router-link :to="{ name: 'login' }" style="color: rgb(105, 76, 3)">
+            <router-link
+              v-if="!isUserLoggedIn"
+              :to="{ name: 'login' }"
+              style="color: rgb(105, 76, 3)"
+            >
               Login
             </router-link>
+            <span
+              v-if="isUserLoggedIn"
+              @click="logout"
+              style="color: rgb(105, 76, 3)"
+            >
+              Logout
+            </span>
           </a>
         </li>
       </ul>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: "AppHeader",
+  data() {
+    return {
+      isUserLoggedIn: localStorage.getItem("userLogin") ? true : false,
+    };
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("userLogin");
+      this.isUserLoggedIn = false;
+    },
+  },
+};
+</script>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");

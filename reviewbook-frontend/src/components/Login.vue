@@ -4,7 +4,7 @@
       <h2 class="login-title">Đăng nhập</h2>
       <form class="form-input" @submit.prevent="login">
         <div class="form-group">
-          <label for="username">Tên đăng nhập</label>
+          <label for="username">Email</label>
           <input
             type="text"
             id="username"
@@ -51,6 +51,7 @@ export default {
     return {
       username: "",
       password: "",
+      isUserLoggedIn: localStorage.getItem("userLogin") ? true : false,
     };
   },
   beforeRouteEnter(to, from, next) {
@@ -70,17 +71,30 @@ export default {
         // Xử lý kết quả trả về nếu cần
         if (response.data) {
           console.log(response.data);
+          const userTemp = response.data;
+
           // Lưu thông tin đăng nhập vào localStorage
-          localStorage.setItem("userLogin", response.data);
+          if (userTemp.role == "admin" || userTemp.role == "reviewer") {
+            localStorage.setItem("userLoginAdmin", response.data);
+            Swal.fire({
+              icon: "success",
+              title: "Thành công!",
+              text: "Đăng nhập thành công",
+            });
 
-          Swal.fire({
-            icon: "success",
-            title: "Thành công!",
-            text: "Đăng nhập thành công",
-          });
+            // Chuyển hướng về trang home
+            this.$router.push({ name: "Users" });
+          } else {
+            localStorage.setItem("userLogin", response.data);
+            Swal.fire({
+              icon: "success",
+              title: "Thành công!",
+              text: "Đăng nhập thành công",
+            });
 
-          // Chuyển hướng về trang home
-          this.$router.push({ name: "home" });
+            // Chuyển hướng về trang home
+            this.$router.push({ name: "home" });
+          }
         } else {
           Swal.fire({
             icon: "error",
@@ -135,11 +149,12 @@ export default {
   align-items: center;
 }
 .form-group label {
+  width: 30%;
   margin-top: 6px;
   margin-right: 5px;
   font-weight: bold;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 }
 .form-control {
