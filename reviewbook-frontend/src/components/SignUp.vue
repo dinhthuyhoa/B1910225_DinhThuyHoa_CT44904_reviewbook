@@ -126,6 +126,8 @@ export default {
   flex-direction: column;
 }
 .signup-container {
+  
+  font-family: "Courier New", Courier, monospace;
   display: flex;
   justify-content: center;
   align-items: center;

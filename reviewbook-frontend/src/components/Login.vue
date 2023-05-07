@@ -120,10 +120,13 @@ export default {
 .form-input {
   display: flex;
   flex-direction: column;
+
 }
 .login-container {
   display: flex;
   /* flex-direction: column; */
+  
+  font-family: "Courier New", Courier, monospace;
   justify-content: center;
   align-items: center;
   height: 79vh;

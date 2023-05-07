@@ -13,7 +13,7 @@
             :key="index"
             :to="{ name: 'review-details', params: { id: review._id } }"
           >
-            <div class="card" v-for="(review, index) in reviews" :key="index">
+            <div class="card">
               <img
                 :src="getBookById(review.book_id).image"
                 class="card-img-top"
